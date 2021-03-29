@@ -1,4 +1,4 @@
-from Labb1 import GameEntity, State
+import GameEntity, State
 
 class StateMachine:
     #public
@@ -10,14 +10,14 @@ class StateMachine:
 
     def Update(self):
         if self._globalState:
-            self._globalState.Execute()
+            self._globalState.Execute(self._owner)
         if self.currentState:
-            self.currentState.Execute()
+            self.currentState.Execute(self._owner)
 
     def ChangeState(self, newState):
         self._previusState = self.currentState
-        self.currentState.Exit()
+        self.currentState.Exit(self)
         self.currentState = newState
-        self.currentState.Enter()
+        self.currentState.Enter(self)
 
 

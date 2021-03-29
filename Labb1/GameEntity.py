@@ -1,4 +1,4 @@
-from Labb1 import StateMachine, State
+import StateMachine, State
 import random
 
 class baseGameEntity:
@@ -10,8 +10,8 @@ class baseGameEntity:
             self._myID = value
             _m_iNextvalidId =+ 1
 
-    def __init__(self, id):#ctor
-        self._SetID(id)
+    def __init__(self,id):#ctor
+        pass
         
     #public
     def __del__(self):#dtor
@@ -26,35 +26,33 @@ class baseGameEntity:
     def whatToDo(self):
         pass
 
-class GaneEntity1(baseGameEntity):
-     stat1 = int()
-     currentState = State()
 
-     def Update(self):
-        self.currentState.Execute()
 
 class Person(baseGameEntity):
 
     def __init__(self, id):#ctor
         self._SetID(id)
-        self.stateMachine = StateMachine()
+        self.stateMachine = StateMachine.StateMachine(self)
         self.money = 0
         self.energi = 0
         self.hunger = 0
         self.thirst = 0
         self.place = None
 
+    def Update(self):
+        self.stateMachine.Update()
+
     def whatToDo(self):
         if self.energi < 1:# Tierd
             self.stateMachine.ChangeState(State.goHomeandSleepUntilRested())
         elif self.thirst <= 1:#Thirsty
             self.stateMachine.ChangeState(State.gotoBarAndDrink())
-        elif self.hunger <=1:#Hungry
+        elif self.hunger <= 1:#Hungry
             self.stateMachine.ChangeState(State.gotoTheResturantAndEat())
         elif self.money > 5:#ritch/ has enogh money
             self.stateMachine.ChangeState(State.goToStoreAndBuySomethingNice())
         else: #go to work
-            if self.stateMachine._currentState == State.goToOfficeAndProgram() or self.stateMachine._CurrentState == State.goToFactoryandFixMachines():
+            if self.stateMachine.currentState == State.goToOfficeAndProgram() or self.stateMachine.currentState == State.goToFactoryandFixMachines():
                 pass
             else:
                 i = random.randint(1,2)

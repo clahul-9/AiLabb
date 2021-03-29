@@ -1,12 +1,10 @@
+import State, StateMachine, GameEntity
 
-from Labb1 import State,StateMachine,GameEntity
+ola = GameEntity.Person(0)
+ola.stateMachine.currentState = State.goHomeandSleepUntilRested()
 
+i = 0
 
-Person = GameEntity.GaneEntity1(0)
-Person.currentState = State.State2()
-stateMachine = StateMachine.StateMachine(Person)
-
-stateMachine._CurrentState = State.State2()
-stateMachine.Update()
-stateMachine._CurrentState = State.State1()
-stateMachine.Update()
+while i <= 50:
+    ola.Update()
+    i += 1
